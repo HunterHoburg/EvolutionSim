@@ -11,35 +11,41 @@ function addOrSubtract() {
   }
 }
 
-function traitChange(array) {
-  for (var i = 0; i < array.length; i++) {
-    if (Number.isInteger(array[i])) {
-      if (randomChance()) {
-        var change = (1 * randomChance()) * (addOrSubtract()) + array[i];
-        return change;
-      }
-    } else if (array[i] == true) {
-      if (randomChance()) {
-        return array[i] = false;
-      }
-    } else if (array[i] == false) {
-      if (randomChance()) {
-        return array[i] = true;
-      }
-    } else if (typeof array[i] === 'string') {
-      //TODO: make strings change, if statements for color, etc.
+function traitChange(key) {
+  if (Number.isInteger(key)) {
+    if (randomChance()) {
+      var change = (1 * randomChance()) * (addOrSubtract()) + key;
+      return change;
+    } else {
+      return key;
     }
+  } else if (key == true) {
+      if (randomChance()) {
+        return key = false;
+      } else {
+        return key;
+      }
+  } else if (key == false) {
+      if (randomChance()) {
+        return key = true;
+      } else {
+        return key;
+      }
+  } else if (typeof key === 'string') {
+      //TODO: make strings change, if statements for color, etc.
+      return key;
+  } else if (typeof key === 'function') {
+    return key;
   }
-}
+  }
 
-function evolution(species) {
+
+function evolution(species) { 
   for (var key in species) {
-    traitChange();
-    return species;
+    species[key] = traitChange(species[key]);
+    console.log(species[key]);
   }
-  // Object.keys(species).forEach(function (key) {
-  //   traitChange(species[key]);
-  // })
+  return species;
 }
 
 function Animal(type) {
