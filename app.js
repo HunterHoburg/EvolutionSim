@@ -70,8 +70,8 @@ function Animal(type) {
   var isFemale = true; //Can change to create male vs. female
   var speed = 10; //Out of 25?
   var size = 5; //Out of 20?
-  var defense = 7; //Out of 20?
-  var attack = 2; //Out of 20?
+  var defense = 4; //Out of 20?
+  var attack = 4; //Out of 20?
   var color = 'blue'; //String perhaps interpreted in jQuery?
   var attackSpeed = 2; //How often they attack, out of 10?
   var sexAppeal = 3; //How likely they are to mate with another animal
@@ -121,7 +121,16 @@ function initialEvolution() {
 
 //function to see if they'll eat each other
 function predation() {
-  // console.log(animalArr);
+  for (var k = 0; k < animalArr.length; k++) {
+    if ((animalArr[k].diet) <= 0) {
+      for (var l = 0; l < animalArr.length; l++) {
+        if (animalArr[k].attack > animalArr[l].defense) {
+          animalArr[k].energy = animalArr[k].energy + animalArr[l].calories;
+          animalArr.splice(animalArr[l], 1);
+        }
+      }
+    }
+  }
 }
 
 populate();
