@@ -48,10 +48,11 @@ function mate() {
 }
 
 var evolution = function(species) {
-  console.log(true);
   for (var key in species) {
+    if (key !== 'ID') {
       species[key] = traitChange(species[key]);
   }
+}
   return species;
 }
 
@@ -76,6 +77,7 @@ function Animal(type) {
   var attackSpeed = 2; //How often they attack, out of 10?
   var sexAppeal = 3; //How likely they are to mate with another animal
   var calories = 2; //How much energy is gained from eating this animal
+  var moveSpeed = 3; //Out of 15?
 
 
   return {
@@ -92,7 +94,8 @@ function Animal(type) {
     attack: attack,
     color: color,
     sexAppeal: sexAppeal,
-    calories: calories
+    calories: calories,
+    moveSpeed: moveSpeed
   }
 }
 
@@ -120,14 +123,40 @@ function initialEvolution() {
 }
 
 //function to see if they'll eat each other
+// function predation() {
+//   var counter = animalArr.length;
+//   for (var k = 0; k < counter; k++) {
+//     if ((animalArr[k].diet) <= 0) {
+//       for (var l = 0; l < counter; l++) {
+//         if (animalArr[k].attack > animalArr[l].defense) {
+//           console.log(true);
+//           if (animalArr[k] !== animalArr[l]) {
+//             animalArr[k].energy = animalArr[k].energy + animalArr[l].calories;
+//             animalArr.splice(animalArr[l], 1);
+//             counter = counter - 1;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+var predatorArr = [];
 function predation() {
-  for (var k = 0; k < animalArr.length; k++) {
-    if ((animalArr[k].diet) <= 0) {
-      for (var l = 0; l < animalArr.length; l++) {
-        if (animalArr[k].attack > animalArr[l].defense) {
-          animalArr[k].energy = animalArr[k].energy + animalArr[l].calories;
-          animalArr.splice(animalArr[l], 1);
-        }
+  var counter = animalArr.length;
+
+  for (var i = 0; i < animalArr.length; i++) {
+    if (animalArr[i].diet <= 0) {
+      predatorArr.push(animalArr[i]);
+      animalArr.splice(animalArr[i], 1);
+
+    }
+  }
+  for (var l = 0; l < predatorArr.length; l++) {
+    for (var m = 0; m < animalArr.length; m++) {
+      if (predatorArr[l].attack > animalArr[m].defense && predatorArr[l].canMove === true && predatorArr[l].moveSpeed >= animalArr[m].moveSpeed) {
+        predatorArr[l].energy = predatorArr[l].energy + animalArr[m].calories;
+        animalArr.splice(animalArr.indexOf(animalArr[m], 1))
+
       }
     }
   }
@@ -140,6 +169,7 @@ initialEvolution();
 initialEvolution();
 initialEvolution();
 initialEvolution();
-// console.log(animalArr);
-console.log(animalArr)
 predation();
+// console.log(predatorArr);
+// console.log(animalArr);
+console.log(animalArr, predatorArr);
