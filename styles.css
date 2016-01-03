@@ -1,5 +1,5 @@
-.viewing-tank {
-  height: 300px;
-  width: 600px;
-  border: 1px solid black;
+
+body {
+  background-color: #DDDDDD;
+  font: 30px sans-serif;
 }

@@ -37,33 +37,46 @@ function traitChange(key) {
   } else if (typeof key === 'function') {
     return key;
   }
-  }
+}
 
+function move() {
+  //TODO: make them move
+}
 
-function evolution(species) { 
+function mate() {
+  //TODO: make them mate, use the IDs
+}
+
+var evolution = function(species) {
+  console.log(true);
   for (var key in species) {
-    species[key] = traitChange(species[key]);
-    console.log(species[key]);
+      species[key] = traitChange(species[key]);
   }
   return species;
 }
 
 function Animal(type) {
   var canMove = true;
-  var energy = 10;
-  var diet = 1;
+  var energy = 10; //Out of 20 total?
+  var diet = 1; //1 = herbivore-flex, 0=herbivore, 2=carnivore flex, 3=carnivore
   var mating = function() {
-    //TODO: create mating function
+    //TODO: create mating function using the IDs, proximity, and sexAppeal
   };
   var move = function() {
     //TODO: create movement function
   };
-  var isFemale = true;
-  var speed = 10;
-  var size = 5;
-  var defense = 7;
-  var attack = 2;
-  var color = 'blue';
+  // var id = 0;
+    //TODO: make id unique for each species
+  var isFemale = true; //Can change to create male vs. female
+  var speed = 10; //Out of 25?
+  var size = 5; //Out of 20?
+  var defense = 7; //Out of 20?
+  var attack = 2; //Out of 20?
+  var color = 'blue'; //String perhaps interpreted in jQuery?
+  var attackSpeed = 2; //How often they attack, out of 10?
+  var sexAppeal = 3; //How likely they are to mate with another animal
+  var calories = 2; //How much energy is gained from eating this animal
+
 
   return {
     canMove: canMove,
@@ -77,12 +90,47 @@ function Animal(type) {
     size: size,
     defense: defense,
     attack: attack,
-    color: color
+    color: color,
+    sexAppeal: sexAppeal,
+    calories: calories
   }
 }
 
-tiger = new Animal();
+var animalArr = [];
+//function to create x number of animals and give them IDs
+var populationSize = 5;
+function populate() {
+  for (var i = 0; i <= populationSize; i++) {
+    var name = i;
+    name = new Animal();
+    name = evolution(name);
+    name = evolution(name);
+    name.ID = i;
+    animalArr.push(name);
+    //move push up beneath 'new animal' and call evolution on array[i]
+    // console.log(animalArr[i]);
+  }
+}
 
-var testArr = [2, 5, 8, 1, 23, true]
+//function to begin evolving and shit
+function initialEvolution() {
+  for (var j = 0; j < animalArr.length; j++) {
+    animalArr[j] = evolution(animalArr[j]);
+  }
+}
 
-console.log(evolution(tiger));
+//function to see if they'll eat each other
+function predation() {
+  // console.log(animalArr);
+}
+
+populate();
+
+
+initialEvolution();
+initialEvolution();
+initialEvolution();
+initialEvolution();
+// console.log(animalArr);
+console.log(animalArr)
+predation();
