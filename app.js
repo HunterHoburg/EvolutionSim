@@ -15,21 +15,7 @@ var populationSize = functionsPage.populationSize;
 var Animal = functionsPage.Animal;
 var Plant = functionsPage.Plant;
 var initialEvolution = functionsPage.initialEvolution;
-
-
-//Eventually, each individual trait will have an array of possible functions and their mutations in order to ensure maximum variety
-
-function move() {
-  //TODO: make them move
-}
-
-function mate() {
-  //TODO: make them mate, use the IDs
-}
-
-//function to see if they'll eat each other
-
-//Test function to give the animals energy
+var traitIncrement = functionsPage.traitIncrement;
 
 populate();
 

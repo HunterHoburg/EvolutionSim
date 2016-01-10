@@ -1,7 +1,9 @@
 var exports = module.exports = {};
+var variationArrays = require('./testVariation.js');
 var animalArr = [];
 var plantArr = [];
 var predatorArr = [];
+var increments = variationArrays.incrementsArr;
 
 //COMMON FUNCTIONS
 
@@ -16,9 +18,21 @@ function addOrSubtract() {
   }
 }
 
+//TODO: create function to randomly select trait increments from testVariation.js
+//TODO: implement the final version of traitIncrement into the traitChange function
+function traitIncrement(value) {
+  if (Number.isInteger(value)) {
+    var change = (1 * randomChance()) * (addOrSubtract()) + increments[value][randomChance()*increments[value].length]+ key;
+    return change;
+  }
+  //possibly else if, in case we don't want to make an array for booleans, colors, etc.
+}
+
 function traitChange(key) {
+  //This if statement will look more like (key == 2, use array 2)
   if (Number.isInteger(key)) {
     if (randomChance()) {
+      //Will implement variation array function here
       var change = (1 * randomChance()) * (addOrSubtract()) + key;
       return change;
     } else {
@@ -52,6 +66,8 @@ var evolution = function(species) {
 }
   return species;
 }
+
+//Eventually, each individual trait will have an array of possible functions and their mutations in order to ensure maximum variety
 
 //EVENTS
 
@@ -180,6 +196,10 @@ function predation() {
   }
 }
 
+function move() {
+  //TODO: make them move
+}
+
 //MATING STUFF
 
 var asexualMating = function(bool, asexualNumOffspring) {
@@ -191,7 +211,6 @@ var asexualMating = function(bool, asexualNumOffspring) {
       name = evolution(name);
       name.ID = plantArr.length + 1;
       plantArr.push(name);
-      console.log('there was an asexual mating')
     }
   }
 }
@@ -312,5 +331,6 @@ module.exports = {
   populate: populate,
   Animal: Animal,
   Plant: Plant,
-  initialEvolution: initialEvolution
+  initialEvolution: initialEvolution,
+  traitIncrement: traitIncrement
 }
