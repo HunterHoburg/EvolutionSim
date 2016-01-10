@@ -8,6 +8,7 @@ function increments() {
 
 
 //TODO: assign each array here to a specific set of traits, like attack, defense, sexAppeal, etc.
+//TODO: flesh out the increment array
 var incrementArr = [
   //For 20 increments
   [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
@@ -18,12 +19,11 @@ var incrementArr = [
   //For 5 increments
   [1,2,3,4,5],
   //Colors for animals
-  [-3, -2, -1, 0, 1, 2, 3],
+  ['red', 'blue,', 'green', 'black'],
   //Colors for plants
-  [-3, -2, -1, 0, 1, 2, 3],
+  ['green', 'blue', 'turquoise'],
   //Booleans?
-  [-3, -2, -1, 0, 1, 2, 3],
-  [-3, -2, -1, 0, 1, 2, 3]
+  [true, false, true, false, true, false]
 ]
 module.exports = {
   incrementArr: incrementArr
