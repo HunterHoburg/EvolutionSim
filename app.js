@@ -116,9 +116,9 @@ function Plant() {
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
   var calories = size/2*healthiness;
   var color = 'green';
-  var asexual = false; //For reproduction
+  // var asexual = false; //For reproduction, removed due to an overwhelming amount of plants being produced
   var isFemale = null; //for reproduction
-  var numOffspring = size/calories;
+  var numOffspring = size*2;
   var mating = function(bool) {
     //TODO: create mating function using the IDs, proximity, and sexAppeal
     if (bool) {
@@ -138,7 +138,6 @@ function Plant() {
     healthiness: healthiness,
     calories: calories,
     color: color,
-    asexual: asexual,
     isFemale: isFemale,
     mating: mating,
     numOffspring: numOffspring
@@ -179,6 +178,23 @@ function initialEvolution() {
 //function to see if they'll eat each other
 var predatorArr = [];
 function predation() {
+  //This is to give the herbivores a steady plant supply for the next predation cycle
+  console.log(plantArr.length);
+  for (var p = 0; p < plantArr.length; p++) {
+    if (plantArr.length > 2 ) {
+      for (var x = 0; x < plantArr.length; x++) {
+        if (plantArr[p].isFemale == true && plantArr[x].isFemale == false) {
+          plantArr[p].mating(true);
+          console.log('plant p successfully created');
+        } else if (plantArr[p].isFemale == false && plantArr[x].isFemale == true) {
+            plantArr[x].mating(true);
+            console.log('plant x successfully created');
+        }
+      }
+    } else {
+      return plantArr[p];
+    }
+  }
   var counter = animalArr.length;
 //TODO create function for herbivores eating plants
   for (var i = 0; i < animalArr.length; i++) {
@@ -204,27 +220,6 @@ function predation() {
         animalArr.splice(animalArr.indexOf(animalArr[m], 1))
 
       }
-    }
-  }
-  //This is to give the herbivores a steady plant supply for the next predation cycle
-  for (var p = 0; p < plantArr.length; p++) {
-    if (plantArr.length > 2 && plantArr[p].asexual == false) {
-      for (var x = 0; x < plantArr.length; x++) {
-        if (plantArr[p].isFemale == true && plantArr[x].asexual == false) {
-          plantArr[p].mating(true);
-          console.log('plant p successfully created');
-        } else if (plantArr[p].isFemale == false) {
-          if (plantArr[x].isFemale == true && plantArr[x].asexual == false) {
-            plantArr[x].mating(true);
-            console.log('plant x successfully created');
-          }
-        }
-      }
-    } else if (plantArr.length > 2 && plantArr[p].asexual == true) {
-      plantArr[p].mating(true);
-      console.log('plant asexually created');
-    } else {
-      return plantArr[p];
     }
   }
 }
