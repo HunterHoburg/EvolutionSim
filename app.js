@@ -1,5 +1,7 @@
 // myPanel = new jsgl.Panel(document.getElementById('panel'));
 
+//TODO: begin separating different functions into other files for modularization
+
 function randomChance() {
   return Math.round(Math.random());
 }
@@ -211,10 +213,18 @@ function predation() {
     } else if (animalArr[i].diet > 0) {
       for (var t = 0; t < plantArr.length; t++) {
         if (animalArr[i].energy > 2 && animalArr[i].size > 3 && plantArr[t].size > 0) {
-          animalArr[i].energy += plantArr[t].calories;
-          plantArr[t].size -= animalArr[i].attack;
-        } else if (plantArr[t].size <= 0) {
+          if (plantArr[t].healthiness < 0) {
+            if (randomChance()>0) {
+              animalArr[i].energy += (plantArr[t].healthiness * 2)
+            }
+          } else if (plantArr[t].size <= 0) {
           plantArr.splice(plantArr[t], 1);
+          } else {
+            if (animalArr[i].attack > 0) {
+              animalArr[i].energy += plantArr[t].calories;
+              plantArr.splice(plantArr.indexOf(plantArr[t]), 1);
+            }
+          }
         }
       }
     }
@@ -274,6 +284,7 @@ var matingTest = function() {
         if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
           if (animalArr[x].sexAppeal > animalArr[y].sexAppeal && randomChance()) {
             animalArr[x].mating(true);
+            animalArr[x].energy -= animalArr[x].calories;
             // console.log(true);
           }
         }
@@ -300,7 +311,6 @@ initialEvolution();
 initialEvolution();
 initialEvolution();
 initialEvolution();
-console.log(plantArr);
 matingTest();
 initialEvolution();
 initialEvolution();
@@ -311,6 +321,4 @@ initialEvolution();
 predation();
 matingTest();
 initialEvolution();
-// console.log(animalArr, predatorArr);
-console.log(plantArr);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
