@@ -1,4 +1,5 @@
 var functionsPage = require('./public/commonFunctions');
+var variation = require('./public/testVariation')
 
 var randomChance = functionsPage.randomChance;
 var addOrSubtract = functionsPage.addOrSubtract;
@@ -16,6 +17,7 @@ var Animal = functionsPage.Animal;
 var Plant = functionsPage.Plant;
 var initialEvolution = functionsPage.initialEvolution;
 var traitIncrement = functionsPage.traitIncrement;
+var incrementArr = variation.incrementArr;
 
 populate();
 
@@ -35,3 +37,6 @@ predation();
 matingTest();
 initialEvolution();
 console.log(animalArr.length, predatorArr.length, plantArr.length);
+// console.log(animalArr);
+// console.log(predatorArr);
+// console.log(plantArr);

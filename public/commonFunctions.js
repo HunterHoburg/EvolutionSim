@@ -1,9 +1,9 @@
 var exports = module.exports = {};
-var variationArrays = require('./testVariation.js');
+var variationArrays = require('./testVariation');
 var animalArr = [];
 var plantArr = [];
 var predatorArr = [];
-var increments = variationArrays.incrementsArr;
+var incrementArr = variationArrays.incrementArr;
 
 //COMMON FUNCTIONS
 
@@ -22,7 +22,7 @@ function addOrSubtract() {
 //TODO: implement the final version of traitIncrement into the traitChange function
 function traitIncrement(value) {
   if (Number.isInteger(value)) {
-    var change = (1 * randomChance()) * (addOrSubtract()) + increments[value][randomChance()*increments[value].length]+ key;
+    var change = (1 * randomChance()) * (addOrSubtract()) + incrementArr[value][randomChance()*incrementArr[value].length]+ key;
     return change;
   }
   //possibly else if, in case we don't want to make an array for booleans, colors, etc.
@@ -62,9 +62,9 @@ var evolution = function(species) {
   for (var key in species) {
     if (key !== 'ID') {
       species[key] = traitChange(species[key]);
+    } 
   }
-}
-  return species;
+    return species;
 }
 
 //Eventually, each individual trait will have an array of possible functions and their mutations in order to ensure maximum variety
@@ -257,10 +257,10 @@ function Animal(type) {
     //TODO: create movement function
   };
   var isFemale = true; //Can change to create male vs. female
-  var speed = 10; //Out of 25?
+  var speed = 10; //Out of 15?
   var size = 5; //Out of 20?
-  var defense = 4; //Out of 20?
-  var attack = 4; //Out of 20?
+  var defense = 4; //Out of 15?
+  var attack = 4; //Out of 15?
   var color = 'blue'; //String perhaps interpreted in jQuery?
   var attackSpeed = 2; //How often they attack, out of 10?
   var sexAppeal = 3; //How likely they are to mate with another animal
