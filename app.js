@@ -106,7 +106,8 @@ function Animal(type) {
     color: color,
     sexAppeal: sexAppeal,
     calories: calories,
-    moveSpeed: moveSpeed
+    moveSpeed: moveSpeed,
+    numOffspring: numOffspring
   }
 }
 
@@ -115,8 +116,22 @@ function Plant() {
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
   var calories = size/2*healthiness;
   var color = 'green';
-  var asexual = false;
-  var isFemale = null;
+  var asexual = false; //For reproduction
+  var isFemale = null; //for reproduction
+  var numOffspring = size/calories;
+  var mating = function(bool) {
+    //TODO: create mating function using the IDs, proximity, and sexAppeal
+    if (bool) {
+      var offspringAddition = numOffspring;
+      for (var o = 0; o < offspringAddition; o++) {
+        var name = o;
+        name = new Plant();
+        name = evolution(name);
+        name.ID = plantArr.length + 1;
+        plantArr.push(name);
+      }
+    }
+  };
 
   return {
     size: size,
@@ -124,7 +139,9 @@ function Plant() {
     calories: calories,
     color: color,
     asexual: asexual,
-    isFemale: isFemale
+    isFemale: isFemale,
+    mating: mating,
+    numOffspring: numOffspring
   }
 
 };
@@ -133,7 +150,7 @@ var animalArr = [];
 var plantArr = [];
 //function to create x number of animals and give them IDs
 var populationSize = 5;
-var foodSize = 10;
+var foodSize = 20;
 function populate() {
   for (var i = 0; i <= populationSize; i++) {
     var name = i;
@@ -189,6 +206,27 @@ function predation() {
       }
     }
   }
+  //This is to give the herbivores a steady plant supply for the next predation cycle
+  for (var p = 0; p < plantArr.length; p++) {
+    if (plantArr.length > 2 && plantArr[p].asexual == false) {
+      for (var x = 0; x < plantArr.length; x++) {
+        if (plantArr[p].isFemale == true && plantArr[x].asexual == false) {
+          plantArr[p].mating(true);
+          console.log('plant p successfully created');
+        } else if (plantArr[p].isFemale == false) {
+          if (plantArr[x].isFemale == true && plantArr[x].asexual == false) {
+            plantArr[x].mating(true);
+            console.log('plant x successfully created');
+          }
+        }
+      }
+    } else if (plantArr.length > 2 && plantArr[p].asexual == true) {
+      plantArr[p].mating(true);
+      console.log('plant asexually created');
+    } else {
+      return plantArr[p];
+    }
+  }
 }
 //Test function to see if they'll mate with each other if the proximity is right
 var matingTest = function() {
@@ -218,6 +256,7 @@ var matingTest = function() {
 //Test function to give the animals energy
 
 populate();
+
 
 initialEvolution();
 initialEvolution();
