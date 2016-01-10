@@ -6,8 +6,6 @@ function increments() {
 
 }
 
-
-//TODO: assign each array here to a specific set of traits, like attack, defense, sexAppeal, etc.
 //TODO: flesh out the increment array
 var incrementArr = [
   //For 20 increments
