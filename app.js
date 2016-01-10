@@ -60,7 +60,7 @@ var evolution = function(species) {
 function Animal(type) {
   var canMove = true;
   var energy = 10; //Out of 20 total?
-  var diet = 1; //1 = herbivore-flex, 0=herbivore, 2=carnivore flex, 3=carnivore
+  var diet = 1; //1 = herbivore-flex, 0=herbivore, -1=carnivore flex, 3=carnivore
   var mating = function(bool) {
     //TODO: create mating function using the IDs, proximity, and sexAppeal
     if (bool) {
@@ -116,9 +116,12 @@ function Plant() {
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
   var calories = 2;
   var color = 'green';
-  // var asexual = false; //For reproduction, removed due to an overwhelming amount of plants being produced
+  var pollRange = 0;
+  //For reproduction, asexual may be removed due to an overwhelming amount of plants being produced
+  var asexual = false;
   var isFemale = false; //for reproduction
   var numOffspring = size/calories;
+  var asexualNumOffspring = 1;
   var mating = function(bool) {
     //TODO: create mating function using the IDs, proximity, and sexAppeal
     if (bool) {
@@ -132,6 +135,18 @@ function Plant() {
       }
     }
   };
+  var asexualMating = function(bool) {
+    //TODO: create mating function using the IDs, proximity, and sexAppeal
+    if (bool) {
+      for (var o = 0; o < asexualNumOffspring; o++) {
+        var name = o;
+        name = new Plant();
+        name = evolution(name);
+        name.ID = plantArr.length + 1;
+        plantArr.push(name);
+      }
+    }
+  }
 
   return {
     size: size,
@@ -140,7 +155,11 @@ function Plant() {
     color: color,
     isFemale: isFemale,
     mating: mating,
-    numOffspring: numOffspring
+    numOffspring: numOffspring,
+    pollRange: pollRange,
+    asexual: asexual,
+    asexualNumOffspring: asexualNumOffspring,
+    asexualMating: asexualMating
   }
 
 };
@@ -174,6 +193,9 @@ function initialEvolution() {
   for (var j = 0; j < animalArr.length; j++) {
     animalArr[j] = evolution(animalArr[j]);
   }
+  for (var k = 0; k < plantArr.length; k++) {
+    plantArr[k] = evolution(plantArr[k]);
+  }
 }
 
 //function to see if they'll eat each other
@@ -181,11 +203,11 @@ var predatorArr = [];
 function predation() {
   var counter = animalArr.length;
 //TODO create function for herbivores eating plants
+//TODO add functionality so that predators can eat each other
   for (var i = 0; i < animalArr.length; i++) {
     if (animalArr[i].diet <= -1) {
       predatorArr.push(animalArr[i]);
       animalArr.splice(animalArr[i], 1);
-
     } else if (animalArr[i].diet > 0) {
       for (var t = 0; t < plantArr.length; t++) {
         if (animalArr[i].energy > 2 && animalArr[i].size > 3 && plantArr[t].size > 0) {
@@ -210,25 +232,42 @@ function predation() {
 //Test function to see if they'll mate with each other if the proximity is right
 var matingTest = function() {
   //This is to give the herbivores a steady plant supply for the next predation cycle
-  console.log(plantArr.length);
+  // console.log(plantArr.length);
+  // for (var p = 0; p < plantArr.length; p++) {
+  //   console.log('this is a plant');
+  //   console.log('this plant has ' + plantArr[p].calories)
+  //   if (plantArr.length > 2) {
+  //     for (var x = 0; x < plantArr.length; x++) {
+  //       if (plantArr[p].isFemale == true && plantArr[x].isFemale == false && plantArr[p].calories > 2) {
+  //         plantArr[p].mating(true);
+  //         console.log('plant p successfully created');
+  //       } else if (plantArr[p].isFemale == false && plantArr[x].isFemale == true && plantArr[x].calories > 2) {
+  //           plantArr[x].mating(true);
+  //           console.log('plant x successfully created');
+  //       }
+  //     }
+  //   } else {
+  //     return plantArr[p];
+  //   }
+  // }
+
+  //TODO: trying new plant mating function
+  console.log('PlantArr size is now = ' + plantArr.length);
   for (var p = 0; p < plantArr.length; p++) {
-    console.log('this is a plant');
-    console.log('this plant has ' + plantArr[p].calories)
-    if (plantArr.length > 2) {
-      for (var x = 0; x < plantArr.length; x++) {
-        if (plantArr[p].isFemale == true && plantArr[x].isFemale == false && plantArr[p].calories > 2) {
+    if (plantArr[p].asexual == false) {
+    for (var l = 0; l < plantArr[p].pollRange; l++) {
+      if (p - l > 0 && p + l < plantArr.length) {
+          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
           plantArr[p].mating(true);
-          console.log('plant p successfully created');
-        } else if (plantArr[p].isFemale == false && plantArr[x].isFemale == true && plantArr[x].calories > 2) {
-            plantArr[x].mating(true);
-            console.log('plant x successfully created');
+          }
         }
       }
-    } else {
-      return plantArr[p];
+    } else if (plantArr[p].asexual == true) {
+      plantArr[p].asexualMating(true);
     }
   }
   //For animals
+  console.log('AnimalArr size is now = ' + animalArr.length)
   for (var x = 0; x < animalArr.length; x++) {
     if (animalArr[x].isFemale == true) {
       for (var y = 0; y < animalArr.length; y++) {
@@ -261,6 +300,7 @@ initialEvolution();
 initialEvolution();
 initialEvolution();
 initialEvolution();
+console.log(plantArr);
 matingTest();
 initialEvolution();
 initialEvolution();
