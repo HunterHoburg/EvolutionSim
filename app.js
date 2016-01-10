@@ -114,11 +114,11 @@ function Animal(type) {
 function Plant() {
   var size = 15; //Out of 20?
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
-  var calories = size/2*healthiness;
+  var calories = 2;
   var color = 'green';
   // var asexual = false; //For reproduction, removed due to an overwhelming amount of plants being produced
-  var isFemale = null; //for reproduction
-  var numOffspring = size*2;
+  var isFemale = false; //for reproduction
+  var numOffspring = size/calories;
   var mating = function(bool) {
     //TODO: create mating function using the IDs, proximity, and sexAppeal
     if (bool) {
@@ -149,7 +149,7 @@ var animalArr = [];
 var plantArr = [];
 //function to create x number of animals and give them IDs
 var populationSize = 5;
-var foodSize = 20;
+var foodSize = 15;
 function populate() {
   for (var i = 0; i <= populationSize; i++) {
     var name = i;
@@ -166,6 +166,7 @@ function populate() {
     name.ID = j;
     plantArr.push(name);
   }
+  console.log('PlantArr size = ' + plantArr.length);
 }
 
 //function to begin evolving and stuff
@@ -178,23 +179,6 @@ function initialEvolution() {
 //function to see if they'll eat each other
 var predatorArr = [];
 function predation() {
-  //This is to give the herbivores a steady plant supply for the next predation cycle
-  console.log(plantArr.length);
-  for (var p = 0; p < plantArr.length; p++) {
-    if (plantArr.length > 2 ) {
-      for (var x = 0; x < plantArr.length; x++) {
-        if (plantArr[p].isFemale == true && plantArr[x].isFemale == false) {
-          plantArr[p].mating(true);
-          console.log('plant p successfully created');
-        } else if (plantArr[p].isFemale == false && plantArr[x].isFemale == true) {
-            plantArr[x].mating(true);
-            console.log('plant x successfully created');
-        }
-      }
-    } else {
-      return plantArr[p];
-    }
-  }
   var counter = animalArr.length;
 //TODO create function for herbivores eating plants
   for (var i = 0; i < animalArr.length; i++) {
@@ -225,13 +209,33 @@ function predation() {
 }
 //Test function to see if they'll mate with each other if the proximity is right
 var matingTest = function() {
+  //This is to give the herbivores a steady plant supply for the next predation cycle
+  console.log(plantArr.length);
+  for (var p = 0; p < plantArr.length; p++) {
+    console.log('this is a plant');
+    console.log('this plant has ' + plantArr[p].calories)
+    if (plantArr.length > 2) {
+      for (var x = 0; x < plantArr.length; x++) {
+        if (plantArr[p].isFemale == true && plantArr[x].isFemale == false && plantArr[p].calories > 2) {
+          plantArr[p].mating(true);
+          console.log('plant p successfully created');
+        } else if (plantArr[p].isFemale == false && plantArr[x].isFemale == true && plantArr[x].calories > 2) {
+            plantArr[x].mating(true);
+            console.log('plant x successfully created');
+        }
+      }
+    } else {
+      return plantArr[p];
+    }
+  }
+  //For animals
   for (var x = 0; x < animalArr.length; x++) {
     if (animalArr[x].isFemale == true) {
       for (var y = 0; y < animalArr.length; y++) {
         if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
           if (animalArr[x].sexAppeal > animalArr[y].sexAppeal && randomChance()) {
             animalArr[x].mating(true);
-            console.log(true);
+            // console.log(true);
           }
         }
       }
@@ -240,7 +244,7 @@ var matingTest = function() {
         if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
           if (animalArr[x].sexAppeal < animalArr[y].sexAppeal && randomChance()) {
             animalArr[y].mating(true);
-            console.log(false);
+            // console.log(false);
           }
         }
       }
@@ -267,5 +271,6 @@ initialEvolution();
 predation();
 matingTest();
 initialEvolution();
-console.log(animalArr, predatorArr);
+// console.log(animalArr, predatorArr);
+console.log(plantArr);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
