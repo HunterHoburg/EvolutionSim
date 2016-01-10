@@ -11,6 +11,7 @@ function addOrSubtract() {
   }
 }
 
+//Eventually, each individual trait will have an array of possible functions and their mutations in order to ensure maximum variety
 function traitChange(key) {
   if (Number.isInteger(key)) {
     if (randomChance()) {
@@ -60,14 +61,23 @@ function Animal(type) {
   var canMove = true;
   var energy = 10; //Out of 20 total?
   var diet = 1; //1 = herbivore-flex, 0=herbivore, 2=carnivore flex, 3=carnivore
-  var mating = function() {
+  var mating = function(bool) {
     //TODO: create mating function using the IDs, proximity, and sexAppeal
+    if (bool) {
+      var offspringAddition = numOffspring;
+      for (var o = 0; o < offspringAddition; o++) {
+        var name = o;
+        name = new Animal();
+        name = evolution(name);
+        name.ID = animalArr.length + 1;
+        name.age = 'young';
+        animalArr.push(name);
+      }
+    }
   };
   var move = function() {
     //TODO: create movement function
   };
-  // var id = 0;
-    //TODO: make id unique for each species
   var isFemale = true; //Can change to create male vs. female
   var speed = 10; //Out of 25?
   var size = 5; //Out of 20?
@@ -78,7 +88,8 @@ function Animal(type) {
   var sexAppeal = 3; //How likely they are to mate with another animal
   var calories = 2; //How much energy is gained from eating this animal
   var moveSpeed = 3; //Out of 15?
-
+  var numOffspring = energy - 4;
+  //TODO implement max/min speed and correspond to energy remaining/danger
 
   return {
     canMove: canMove,
@@ -99,9 +110,30 @@ function Animal(type) {
   }
 }
 
+function Plant() {
+  var size = 15; //Out of 20?
+  var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
+  var calories = size/2*healthiness;
+  var color = 'green';
+  var asexual = false;
+  var isFemale = null;
+
+  return {
+    size: size,
+    healthiness: healthiness,
+    calories: calories,
+    color: color,
+    asexual: asexual,
+    isFemale: isFemale
+  }
+
+};
+
 var animalArr = [];
+var plantArr = [];
 //function to create x number of animals and give them IDs
 var populationSize = 5;
+var foodSize = 10;
 function populate() {
   for (var i = 0; i <= populationSize; i++) {
     var name = i;
@@ -110,12 +142,17 @@ function populate() {
     name = evolution(name);
     name.ID = i;
     animalArr.push(name);
-    //move push up beneath 'new animal' and call evolution on array[i]
-    // console.log(animalArr[i]);
+  }
+  for (var j = 0; j <= foodSize; j++) {
+    var name = j;
+    name = new Plant();
+    name = evolution(name);
+    name.ID = j;
+    plantArr.push(name);
   }
 }
 
-//function to begin evolving and shit
+//function to begin evolving and stuff
 function initialEvolution() {
   for (var j = 0; j < animalArr.length; j++) {
     animalArr[j] = evolution(animalArr[j]);
@@ -123,37 +160,29 @@ function initialEvolution() {
 }
 
 //function to see if they'll eat each other
-// function predation() {
-//   var counter = animalArr.length;
-//   for (var k = 0; k < counter; k++) {
-//     if ((animalArr[k].diet) <= 0) {
-//       for (var l = 0; l < counter; l++) {
-//         if (animalArr[k].attack > animalArr[l].defense) {
-//           console.log(true);
-//           if (animalArr[k] !== animalArr[l]) {
-//             animalArr[k].energy = animalArr[k].energy + animalArr[l].calories;
-//             animalArr.splice(animalArr[l], 1);
-//             counter = counter - 1;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
 var predatorArr = [];
 function predation() {
   var counter = animalArr.length;
-
+//TODO create function for herbivores eating plants
   for (var i = 0; i < animalArr.length; i++) {
-    if (animalArr[i].diet <= 0) {
+    if (animalArr[i].diet <= -1) {
       predatorArr.push(animalArr[i]);
       animalArr.splice(animalArr[i], 1);
 
+    } else if (animalArr[i].diet > 0) {
+      for (var t = 0; t < plantArr.length; t++) {
+        if (animalArr[i].energy > 2 && animalArr[i].size > 3 && plantArr[t].size > 0) {
+          animalArr[i].energy += plantArr[t].calories;
+          plantArr[t].size -= animalArr[i].attack;
+        } else if (plantArr[t].size <= 0) {
+          plantArr.splice(plantArr[t], 1);
+        }
+      }
     }
   }
   for (var l = 0; l < predatorArr.length; l++) {
     for (var m = 0; m < animalArr.length; m++) {
-      if (predatorArr[l].attack > animalArr[m].defense && predatorArr[l].canMove === true && predatorArr[l].moveSpeed >= animalArr[m].moveSpeed) {
+      if (predatorArr[l].attack > animalArr[m].defense && predatorArr[l].canMove === true && predatorArr[l].moveSpeed >= animalArr[m].moveSpeed && randomChance()) {
         predatorArr[l].energy = predatorArr[l].energy + animalArr[m].calories;
         animalArr.splice(animalArr.indexOf(animalArr[m], 1))
 
@@ -161,15 +190,48 @@ function predation() {
     }
   }
 }
+//Test function to see if they'll mate with each other if the proximity is right
+var matingTest = function() {
+  for (var x = 0; x < animalArr.length; x++) {
+    if (animalArr[x].isFemale == true) {
+      for (var y = 0; y < animalArr.length; y++) {
+        if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
+          if (animalArr[x].sexAppeal > animalArr[y].sexAppeal && randomChance()) {
+            animalArr[x].mating(true);
+            console.log(true);
+          }
+        }
+      }
+    } else if (animalArr[x].isFemale == false) {
+      for (var y = 0; y < animalArr.length; y++) {
+        if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
+          if (animalArr[x].sexAppeal < animalArr[y].sexAppeal && randomChance()) {
+            animalArr[y].mating(true);
+            console.log(false);
+          }
+        }
+      }
+    }
+  }
+}
+
+//Test function to give the animals energy
 
 populate();
 
-
 initialEvolution();
 initialEvolution();
 initialEvolution();
+initialEvolution();
+matingTest();
+initialEvolution();
+initialEvolution();
+matingTest();
+initialEvolution();
+matingTest();
 initialEvolution();
 predation();
-// console.log(predatorArr);
-// console.log(animalArr);
+matingTest();
+initialEvolution();
 console.log(animalArr, predatorArr);
+console.log(animalArr.length, predatorArr.length, plantArr.length);
