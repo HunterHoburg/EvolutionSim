@@ -23,8 +23,6 @@ var plantMating = functionsPage.plantMating;
 var asexualPlantMating = functionsPage.asexualPlantMating;
 //
 populate();
-var firstTest = animalArr[1];
-console.log(firstTest);
 
 initialEvolution();
 initialEvolution();
@@ -42,11 +40,7 @@ matingTest();
 initialEvolution();
 // console.log(animalArr[1]);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
-var secondTest = animalArr[1];
-console.log(secondTest);
+console.log(plantArr[3].pollRange);
 
-if (firstTest === secondTest) {
-  console.log("they're the same")
-} else {
-  console.log("they're not the same");
-}
+var testPlant = new Plant();
+console.log(testPlant.pollRange);

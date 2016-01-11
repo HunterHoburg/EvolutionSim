@@ -2,10 +2,6 @@ var exports = module.exports = {};
 
 //This is to create an array for possible variations of traits to give them more realistic variation increments
 
-function increments() {
-
-}
-
 //TODO: flesh out the increment array
 var incrementArr = [
   //For 20 increments

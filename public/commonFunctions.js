@@ -7,6 +7,7 @@ var incrementArr = variationArrays.incrementArr;
 
 //TODO: LOOK FOR ALL THE TODO TODO's
 //TODO: MAKE PREDATORS THEIR OWN OBJECT
+//TODO: some issue with increments and stuff not returning or something, so there's no new population?
 
 //COMMON FUNCTIONS
 
@@ -17,7 +18,7 @@ function randomChance() {
 function randomIncrementArr(arr) {
     var increment = Math.round((arr.length * Math.random()));
     if (increment < arr.length) {
-    // console.log('it is ' + arr[increment2]);
+    console.log('it is ' + arr[increment]);
     return increment;
   } else if (increment = arr.length){
     return increment - 1;
@@ -95,18 +96,21 @@ function initialEvolution() {
 //TODO: reimplement the plant creation with the new incrementArr
 var matingTest = function() {
   //This is to give the herbivores a steady plant supply for the next predation cycle
-  console.log('PlantArr size is now = ' + plantArr.length);
+  // console.log('PlantArr size is now = ' + plantArr.length);
   for (var p = 0; p < plantArr.length; p++) {
     if (plantArr[p].asexual == false) {
     for (var l = 0; l < plantArr[p].pollRange; l++) {
+      console.log(plantArr[p].pollRange);
+      console.log(false);
       if (p - l > 0 && p + l < plantArr.length) {
           if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-          plantArr[p].plantMatingBasic(true, plantArr[p].numOffspring);
+          plantArr[p].plantMating(true, plantArr[p].numOffspring);
           }
         }
       }
     } else if (plantArr[p].asexual == true) {
-      plantArr[p].asexualPlantMating(true, plantArr[p].asexualNumOffspring);
+      console.log(true)
+      plantArr[p].asexualPlant(true, plantArr[p].asexualNumOffspring);
     }
   }
   //For animals mating
@@ -173,54 +177,27 @@ function predation() {
   //Adding in another plant growth cycle to keep herbivore food high enough
 
   //TODO: reimplement the plant creation with the new incrementArr
-//   for (var p = 0; p < plantArr.length; p++) {
-//     if (plantArr[p].asexual == false) {
-//     for (var l = 0; l < plantArr[p].pollRange; l++) {
-//       if (p - l > 0 && p + l < plantArr.length) {
-//           if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-//           plantArr[p].mating(true, plantArr[p].numOffspring);
-//           }
-//         }
-//       }
-//     } else if (plantArr[p].asexual == true) {
-//       plantArr[p].asexualPlantMating(true, plantArr[p].asexualNumOffspring);
-//     }
-//   }
-// }
+  for (var p = 0; p < plantArr.length; p++) {
+    if (plantArr[p].asexual == false) {
+    for (var l = 0; l < plantArr[p].pollRange; l++) {
+      if (p - l > 0 && p + l < plantArr.length) {
+          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
+          plantArr[p].plantMating(true, plantArr[p].numOffspring);
+          }
+        }
+      }
+    } else if (plantArr[p].asexual == true) {
+      plantArr[p].asexualPlant(true, plantArr[p].asexualNumOffspring);
+    }
+  }
 }
+
 
 function move() {
   //TODO: make them move
 }
 
 //MATING STUFF
-
-var asexualMating = function(bool, asexualNumOffspring) {
-  //TODO: create mating function using the IDs, proximity, and sexAppeal
-  if (bool) {
-    for (var o = 0; o < asexualNumOffspring; o++) {
-      var name = o;
-      name = new Plant();
-      name = evolution(name);
-      name.ID = plantArr.length + 1;
-      plantArr.push(name);
-    }
-  }
-}
-
-var asexualPlantMating = function(bool, asexualNumOffspring) {
-  //TODO: create mating function using the IDs, proximity, and sexAppeal
-  if (bool) {
-    for (var o = 0; o < asexualNumOffspring; o++) {
-      var name = o;
-      name = new Plant();
-      name = evolution(name);
-      name.ID = plantArr.length + 1;
-      plantArr.push(name);
-    }
-  }
-}
-
 
 //Animal Mating
 var animalMatingBasic = function(canMate, num) {
@@ -237,6 +214,18 @@ var animalMatingBasic = function(canMate, num) {
     }
   }
 };
+var asexualMating = function(bool, asexualNumOffspring) {
+  //TODO: create mating function using the IDs, proximity, and sexAppeal
+  if (bool) {
+    for (var o = 0; o < asexualNumOffspring; o++) {
+      var name = o;
+      name = new Plant();
+      name = evolution(name);
+      name.ID = plantArr.length + 1;
+      plantArr.push(name);
+    }
+  }
+};
 
 //Plant Mating
 var plantMatingBasic = function(bool, num) {
@@ -244,6 +233,18 @@ var plantMatingBasic = function(bool, num) {
   if (bool) {
     var offspringAddition = num;
     for (var o = 0; o < offspringAddition; o++) {
+      var name = o;
+      name = new Plant();
+      name = evolution(name);
+      name.ID = plantArr.length + 1;
+      plantArr.push(name);
+    }
+  }
+};
+var asexualPlantMating = function(bool, asexualNumOffspring) {
+  //TODO: create mating function using the IDs, proximity, and sexAppeal
+  if (bool) {
+    for (var o = 0; o < asexualNumOffspring; o++) {
       var name = o;
       name = new Plant();
       name = evolution(name);
@@ -342,7 +343,7 @@ function Plant() {
   var caloriesCounter = 1;
   var color = 'green';
   var colorCounter = 5;
-  var pollRange = 1;
+  var pollRange = 2;
   var pollRangeCounter = 3;
   //For reproduction, asexual may be removed due to an overwhelming amount of plants being produced
   var asexual = false;
@@ -370,7 +371,7 @@ function Plant() {
     asexual: asexual,
     asexualCounter: asexualCounter,
     asexualNumOffspring: asexualNumOffspring,
-    asexualPlantMating: asexualMating,
+    asexualPlant: asexualPlantMating,
     asexualNumOffspringCounter: asexualNumOffspringCounter
   }
 };
@@ -396,34 +397,3 @@ module.exports = {
   plantMating: plantMatingBasic,
   asexualPlantMating: asexualPlantMating
 }
-
-
-// function traitChange(key) {
-//   //This if statement will look more like (key == 2, use array 2)
-//   if (Number.isInteger(key)) {
-//     if (randomChance()) {
-//       //Will implement variation array function here
-//       var change = (1 * randomChance()) * (addOrSubtract()) + key;
-//       return change;
-//     } else {
-//       return key;
-//     }
-//   } else if (key == true) {
-//       if (randomChance()) {
-//         return key = false;
-//       } else {
-//         return key;
-//       }
-//   } else if (key == false) {
-//       if (randomChance()) {
-//         return key = true;
-//       } else {
-//         return key;
-//       }
-//   } else if (typeof key === 'string') {
-//       //TODO: make strings change, if statements for color, etc.
-//       return key;
-//   } else if (typeof key === 'function') {
-//     return key;
-//   }
-// }
