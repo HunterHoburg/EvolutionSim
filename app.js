@@ -20,6 +20,7 @@ var traitIncrement = functionsPage.traitIncrement;
 var incrementArr = variation.incrementArr;
 var randomIncrementArr = functionsPage.randomIncrementArr;
 var plantMating = functionsPage.plantMating;
+var asexualPlantMating = functionsPage.asexualPlantMating;
 //
 populate();
 var firstTest = animalArr[1];

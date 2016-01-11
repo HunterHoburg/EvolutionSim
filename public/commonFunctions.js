@@ -101,7 +101,7 @@ var matingTest = function() {
     for (var l = 0; l < plantArr[p].pollRange; l++) {
       if (p - l > 0 && p + l < plantArr.length) {
           if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-          plantArr[p].mating(true, plantArr[p].numOffspring);
+          plantArr[p].plantMatingBasic(true, plantArr[p].numOffspring);
           }
         }
       }
@@ -208,19 +208,18 @@ var asexualMating = function(bool, asexualNumOffspring) {
   }
 }
 
-//TODO: implement this to accept pollrange variable
-// var asexualPlantMating = function(bool, asexualNumOffspring) {
-//   //TODO: create mating function using the IDs, proximity, and sexAppeal
-//   if (bool) {
-//     for (var o = 0; o < asexualNumOffspring; o++) {
-//       var name = o;
-//       name = new Plant();
-//       name = evolution(name);
-//       name.ID = plantArr.length + 1;
-//       plantArr.push(name);
-//     }
-//   }
-// }
+var asexualPlantMating = function(bool, asexualNumOffspring) {
+  //TODO: create mating function using the IDs, proximity, and sexAppeal
+  if (bool) {
+    for (var o = 0; o < asexualNumOffspring; o++) {
+      var name = o;
+      name = new Plant();
+      name = evolution(name);
+      name.ID = plantArr.length + 1;
+      plantArr.push(name);
+    }
+  }
+}
 
 
 //Animal Mating
@@ -240,7 +239,7 @@ var animalMatingBasic = function(canMate, num) {
 };
 
 //Plant Mating
-var plantMating = function(bool, num) {
+var plantMatingBasic = function(bool, num) {
   //TODO: create mating function using the IDs, proximity, and sexAppeal
   if (bool) {
     var offspringAddition = num;
@@ -363,8 +362,8 @@ function Plant() {
     color: color,
     color: colorCounter,
     isFemale: isFemale,
-    isFemaleCounter: isFemaleCounter
-    plantMating: plantMating,
+    isFemaleCounter: isFemaleCounter,
+    plantMating: plantMatingBasic,
     numOffspring: numOffspring,
     pollRange: pollRange,
     pollRangeCounter: pollRangeCounter,
@@ -394,7 +393,8 @@ module.exports = {
   initialEvolution: initialEvolution,
   traitIncrement: traitIncrement,
   randomIncrementArr: randomIncrementArr,
-  plantMating: plantMating
+  plantMating: plantMatingBasic,
+  asexualPlantMating: asexualPlantMating
 }
 
 
