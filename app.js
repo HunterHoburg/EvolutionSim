@@ -21,7 +21,8 @@ var incrementArr = variation.incrementArr;
 var randomIncrementArr = functionsPage.randomIncrementArr
 //
 populate();
-console.log(animalArr[1]);
+var firstTest = animalArr[1];
+console.log(firstTest);
 
 initialEvolution();
 initialEvolution();
@@ -39,92 +40,11 @@ matingTest();
 initialEvolution();
 // console.log(animalArr[1]);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
-console.log(animalArr[1]);
-// console.log(animalArr);
-// console.log(predatorArr);
-// console.log(plantArr);
+var secondTest = animalArr[1];
+console.log(secondTest);
 
-// console.log(evolution(animalArr[1]));
-// console.log(animalArr[1]);
-// function checkKey(object) {
-//   for (var key in object) {
-//     // console.log(object[key]);
-//   }
-// }
-// checkKey(animalArr[1]);
-// //SUPER TEST AREA
-// function createTestAnimal() {
-//     return new Animal();
-// }
-// var testimal = createTestAnimal();
-// console.log(testimal);
-// evolution(testimal);
-//
-// var testArray = [1, 2, 3, 4, 5];
-// console.log(randomIncrementArr(testArray));
-
-// console.log(testimal);
-//
-// traitIncrement
-
-if ({ canMate: true,
-  canMateCounter: 6,
-  canMove: true,
-  canMoveCounter: 6,
-  energy: 10,
-  energyCounter: 0,
-  diet: NaN,
-  dietCounter: 3,
-  attack: NaN,
-  attackCounter: 1,
-  animalMating: [Function],
-  isFemale: true,
-  isFemaleCounter: 6,
-  speed: NaN,
-  speedCounter: 1,
-  size: 7,
-  sizeCounter: 0,
-  defense: NaN,
-  defenseCounter: 1,
-  color: 'blue',
-  colorCounter: '4',
-  sexAppeal: NaN,
-  sexAppealCounter: 2,
-  calories: NaN,
-  caloriesCounter: 1,
-  moveSpeed: NaN,
-  moveSpeedCounter: 1,
-  numOffspring: -8,
-  ID: 1 } === { canMate: true,
-  canMateCounter: 6,
-  canMove: true,
-  canMoveCounter: 6,
-  energy: 10,
-  energyCounter: 0,
-  diet: NaN,
-  dietCounter: 3,
-  attack: NaN,
-  attackCounter: 1,
-  animalMating: [Function],
-  isFemale: true,
-  isFemaleCounter: 6,
-  speed: NaN,
-  speedCounter: 1,
-  size: 7,
-  sizeCounter: 0,
-  defense: NaN,
-  defenseCounter: 1,
-  color: 'blue',
-  colorCounter: '4',
-  sexAppeal: NaN,
-  sexAppealCounter: 2,
-  calories: NaN,
-  caloriesCounter: 1,
-  moveSpeed: NaN,
-  moveSpeedCounter: 1,
-  numOffspring: -8,
-  ID: 1 }) {
-    console.log('same');
-  } else {
-    console.log('not same');
-  }
+if (firstTest === secondTest) {
+  console.log("they're the same")
+} else {
+  console.log("they're not the same");
+}
