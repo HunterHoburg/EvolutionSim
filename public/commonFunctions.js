@@ -38,7 +38,7 @@ function traitIncrement(arr) {
 
     var change = (Math.pow(randomChance()) * (addOrSubtract())* randomIncrementArr(arr))
     return change;
-  }
+}
   //possibly else if, in case we don't want to make an array for booleans, colors, etc.
 
 //TODO: perhaps make initial evolution function with different evolution parameters to increase diversity
@@ -71,13 +71,13 @@ function populate() {
     name.ID = i;
     animalArr.push(name);
   }
-  // for (var j = 0; j <= foodSize; j++) {
-  //   var name = j;
-  //   name = new Plant();
-  //   name = evolution(name);
-  //   name.ID = j;
-  //   plantArr.push(name);
-  // }
+  for (var j = 0; j <= foodSize; j++) {
+    var name = j;
+    name = new Plant();
+    name = evolution(name);
+    name.ID = j;
+    plantArr.push(name);
+  }
   console.log('PlantArr size = ' + plantArr.length);
 }
 
@@ -96,19 +96,19 @@ function initialEvolution() {
 var matingTest = function() {
   //This is to give the herbivores a steady plant supply for the next predation cycle
   console.log('PlantArr size is now = ' + plantArr.length);
-  // for (var p = 0; p < plantArr.length; p++) {
-  //   if (plantArr[p].asexual == false) {
-  //   for (var l = 0; l < plantArr[p].pollRange; l++) {
-  //     if (p - l > 0 && p + l < plantArr.length) {
-  //         if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-  //         plantArr[p].mating(true, plantArr[p].numOffspring);
-  //         }
-  //       }
-  //     }
-  //   } else if (plantArr[p].asexual == true) {
-  //     plantArr[p].asexualPlantMating(true, plantArr[p].asexualNumOffspring);
-  //   }
-  // }
+  for (var p = 0; p < plantArr.length; p++) {
+    if (plantArr[p].asexual == false) {
+    for (var l = 0; l < plantArr[p].pollRange; l++) {
+      if (p - l > 0 && p + l < plantArr.length) {
+          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
+          plantArr[p].mating(true, plantArr[p].numOffspring);
+          }
+        }
+      }
+    } else if (plantArr[p].asexual == true) {
+      plantArr[p].asexualPlantMating(true, plantArr[p].asexualNumOffspring);
+    }
+  }
   //For animals mating
   console.log('AnimalArr size is now = ' + animalArr.length)
   for (var x = 0; x < animalArr.length; x++) {
@@ -207,6 +207,21 @@ var asexualMating = function(bool, asexualNumOffspring) {
     }
   }
 }
+
+//TODO: implement this to accept pollrange variable
+// var asexualPlantMating = function(bool, asexualNumOffspring) {
+//   //TODO: create mating function using the IDs, proximity, and sexAppeal
+//   if (bool) {
+//     for (var o = 0; o < asexualNumOffspring; o++) {
+//       var name = o;
+//       name = new Plant();
+//       name = evolution(name);
+//       name.ID = plantArr.length + 1;
+//       plantArr.push(name);
+//     }
+//   }
+// }
+
 
 //Animal Mating
 var animalMatingBasic = function(canMate, num) {
@@ -314,34 +329,50 @@ function Animal(type) {
     caloriesCounter: caloriesCounter,
     moveSpeed: moveSpeed,
     moveSpeedCounter: moveSpeedCounter,
-    numOffspring: numOffspring
+    numOffspring: numOffspring,
     // numOffspringCounter: numOffspringCounter
   }
 }
 
 function Plant() {
   var size = 15; //Out of 20?
+  var sizeCounter = 1;
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
+  var healthinessCounter = 2;
   var calories = 2;
+  var caloriesCounter = 1;
   var color = 'green';
-  var pollRange = 0;
+  var colorCounter = 5;
+  var pollRange = 1;
+  var pollRangeCounter = 3;
   //For reproduction, asexual may be removed due to an overwhelming amount of plants being produced
   var asexual = false;
+  var asexualCounter = 6;
   var isFemale = false; //for reproduction
+  var isFemaleCounter = 6;
   var numOffspring = size/calories;
   var asexualNumOffspring = 1;
+  var asexualNumOffspringCounter = 3;
   return {
     size: size,
+    sizeCounter: sizeCounter,
     healthiness: healthiness,
+    healthinessCounter: healthinessCounter,
     calories: calories,
+    caloriesCounter: caloriesCounter,
     color: color,
+    color: colorCounter,
     isFemale: isFemale,
-    mating: plantMating,
+    isFemaleCounter: isFemaleCounter
+    plantMating: plantMating,
     numOffspring: numOffspring,
     pollRange: pollRange,
+    pollRangeCounter: pollRangeCounter,
     asexual: asexual,
+    asexualCounter: asexualCounter,
     asexualNumOffspring: asexualNumOffspring,
-    asexualPlantMating: asexualMating
+    asexualPlantMating: asexualMating,
+    asexualNumOffspringCounter: asexualNumOffspringCounter
   }
 };
 
@@ -362,7 +393,8 @@ module.exports = {
   Plant: Plant,
   initialEvolution: initialEvolution,
   traitIncrement: traitIncrement,
-  randomIncrementArr: randomIncrementArr
+  randomIncrementArr: randomIncrementArr,
+  plantMating: plantMating
 }
 
 

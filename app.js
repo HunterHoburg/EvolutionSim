@@ -18,7 +18,8 @@ var Plant = functionsPage.Plant;
 var initialEvolution = functionsPage.initialEvolution;
 var traitIncrement = functionsPage.traitIncrement;
 var incrementArr = variation.incrementArr;
-var randomIncrementArr = functionsPage.randomIncrementArr
+var randomIncrementArr = functionsPage.randomIncrementArr;
+var plantMating = functionsPage.plantMating;
 //
 populate();
 var firstTest = animalArr[1];
