@@ -7,18 +7,18 @@ var incrementArr = variationArrays.incrementArr;
 
 //TODO: LOOK FOR ALL THE TODO TODO's
 //TODO: MAKE PREDATORS THEIR OWN OBJECT
-//TODO: some issue with increments and stuff not returning or something, so there's no new population?
+//TODO: some issue with increments and stuff not returning or something, so there's no new population? Also, it's after the first evolution function that many values are being turned into NaN;
+//TODO: the increments not returning seems like it may be caught up on numOffspring being NaN
 
 //COMMON FUNCTIONS
 
 function randomChance() {
   return Math.round(Math.random());
 }
-
 function randomIncrementArr(arr) {
     var increment = Math.round((arr.length * Math.random()));
     if (increment < arr.length) {
-    console.log('it is ' + arr[increment]);
+    // console.log('it is ' + arr[increment]);
     return increment;
   } else if (increment = arr.length){
     return increment - 1;
@@ -43,13 +43,21 @@ function traitIncrement(arr) {
   //possibly else if, in case we don't want to make an array for booleans, colors, etc.
 
 //TODO: perhaps make initial evolution function with different evolution parameters to increase diversity
+
+
+//TODO: NOTICE THAT WHEN CONSOLE.LOGGING THE SPECIES IN THE EVOLUTION FUNCTION, THE VALUES ARE ALL ALREADY NAN
+
 var evolution = function(species) {
+  console.log(species);
+  // console.log(species.size);
   for (var key in species) {
+    // console.log(key + '=' + species[key])
     if (key !== 'ID' && key.substr(-7) !== 'Counter' && typeof species[key] !== 'function') {
       var count = key + 'Counter';
+      // console.log(key);
+      // console.log(count);
       if (species[count]) {
         if (species[count] < 4) {
-
           species[key] += traitIncrement(incrementArr[species[count]]);
         }
       }
@@ -57,16 +65,17 @@ var evolution = function(species) {
   }
     return species;
 }
+//TODO adding something so that there's a 'not' shallow copy of each species so that can be passed forward from each evolution? 
 
 //EVENTS
 
 //function to create x number of animals and give them IDs
 var populationSize = 5;
-var foodSize = 15;
+var foodSize = 3;
 function populate() {
   for (var i = 0; i <= populationSize; i++) {
-    var name = i;
-    name = new Animal();
+    var name = new Animal();
+    // console.log(name);
     name = evolution(name);
     name = evolution(name);
     name.ID = i;
@@ -335,7 +344,7 @@ function Animal(type) {
 }
 
 function Plant() {
-  var size = 15; //Out of 20?
+  var size; //Out of 20?
   var sizeCounter = 1;
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
   var healthinessCounter = 2;

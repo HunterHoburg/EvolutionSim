@@ -23,6 +23,8 @@ var plantMating = functionsPage.plantMating;
 var asexualPlantMating = functionsPage.asexualPlantMating;
 //
 populate();
+console.log(plantArr[1].pollRange);
+// console.log(plantArr);
 
 initialEvolution();
 initialEvolution();

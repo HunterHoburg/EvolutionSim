@@ -17,7 +17,7 @@ var incrementArr = [
   //Colors for plants
   ['green', 'blue', 'turquoise'],
   //Booleans?
-  j\\\][true, false, true, false, true, false]g
+  [true, false, true, false, true, false]
 ]
 module.exports = {
   incrementArr: incrementArr
