@@ -65,7 +65,7 @@ var evolution = function(species) {
   }
     return species;
 }
-//TODO adding something so that there's a 'not' shallow copy of each species so that can be passed forward from each evolution? 
+//TODO adding something so that there's a 'not' shallow copy of each species that can be passed forward from each evolution? 
 
 //EVENTS
 
