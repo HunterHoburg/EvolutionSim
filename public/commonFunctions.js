@@ -48,13 +48,13 @@ function traitIncrement(arr) {
 //TODO: NOTICE THAT WHEN CONSOLE.LOGGING THE SPECIES IN THE EVOLUTION FUNCTION, THE VALUES ARE ALL ALREADY NAN
 
 var evolution = function(species) {
-  console.log(species);
+  // console.log(species);
   // console.log(species.size);
   for (var key in species) {
     // console.log(key + '=' + species[key])
     if (key !== 'ID' && key.substr(-7) !== 'Counter' && typeof species[key] !== 'function') {
       var count = key + 'Counter';
-      // console.log(key);
+      console.log(species[key]);
       // console.log(count);
       if (species[count]) {
         if (species[count] < 4) {
@@ -65,7 +65,7 @@ var evolution = function(species) {
   }
     return species;
 }
-//TODO adding something so that there's a 'not' shallow copy of each species that can be passed forward from each evolution? 
+//TODO adding something so that there's a 'not' shallow copy of each species that can be passed forward from each evolution?
 
 //EVENTS
 
@@ -77,6 +77,7 @@ function populate() {
     var name = new Animal();
     // console.log(name);
     name = evolution(name);
+    // console.log(name2);
     name = evolution(name);
     name.ID = i;
     animalArr.push(name);
