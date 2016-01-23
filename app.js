@@ -2,6 +2,7 @@ var functionsPage = require('./public/commonFunctions');
 var variation = require('./public/testVariation')
 
 var randomChance = functionsPage.randomChance;
+var lowRandomChance = functionsPage.lowRandomChance;
 var addOrSubtract = functionsPage.addOrSubtract;
 var traitChange = functionsPage.traitChange;
 var evolution = functionsPage.evolution;
@@ -21,11 +22,9 @@ var incrementArr = variation.incrementArr;
 var randomIncrementArr = functionsPage.randomIncrementArr;
 var plantMating = functionsPage.plantMating;
 var asexualPlantMating = functionsPage.asexualPlantMating;
-//
+
 populate();
-console.log(plantArr[1].pollRange);
-
-
+// console.log(plantArr);
 initialEvolution();
 initialEvolution();
 initialEvolution();
@@ -36,12 +35,16 @@ initialEvolution();
 matingTest();
 initialEvolution();
 matingTest();
+console.log(plantArr.length);
+// console.log(plantArr)
+// console.log(plantArr);
 initialEvolution();
-console.log(animalArr);
+// console.log(animalArr);
 predation();
 matingTest();
 initialEvolution();
 // console.log(animalArr[1]);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
-
-var testPlant = new Plant();
+// console.log(plantArr);
+// console.log(animalArr);
+// console.log(incrementArr[6][randomChance()*(incrementArr[6].length-1)])

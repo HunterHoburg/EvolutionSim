@@ -13,6 +13,11 @@ var incrementArr = variationArrays.incrementArr;
 function randomChance() {
   return Math.round(Math.random());
 }
+
+function lowRandomChance() {
+  var low = Math.round(Math.random()/1.5);
+  return low;
+}
 function randomIncrementArr(arr) {
     var increment = Math.round((arr.length * Math.random()));
     if (increment < arr.length) {
@@ -42,7 +47,7 @@ function traitIncrement(arr) {
 
 var evolution = function(species) {
   for (var key in species) {
-    if (key !== 'ID' && key.substr(-7) !== 'Counter' && typeof species[key] !== 'function') {
+    if (key !== 'ID' && key.substr(-7) !== 'Counter' && typeof species[key] == 'number') {
       var count = key + 'Counter';
       if (species[count]) {
         if (species[count] < 4) {
@@ -51,6 +56,12 @@ var evolution = function(species) {
       }
       if (species[key] < 0) {
         species[key] = species[key] * -1;
+      }
+    } else if (typeof species[key] == 'boolean') {
+      // console.log(true);
+      if (lowRandomChance()) {
+        // console.log(randomChance());
+        species[key] = incrementArr[6][randomChance()*5]
       }
     }
   }
@@ -62,27 +73,23 @@ var evolution = function(species) {
 
 //function to create x number of animals and give them IDs
 var populationSize = 5;
-var foodSize = 3;
+var foodSize = 6;
 function populate() {
   for (var i = 0; i <= populationSize; i++) {
     var name = new Animal();
-    // console.log(name);
-    // console.log(name);
     evolution(name);
-    // console.log(name2);
     evolution(name);
     name.ID = i;
     animalArr.push(name);
-    // console.log(name);
   }
   for (var j = 0; j <= foodSize; j++) {
-    var name = j;
-    name = new Plant();
-    name = evolution(name);
+    var name = new Plant();
+    evolution(name);
+    evolution(name);
     name.ID = j;
     plantArr.push(name);
   }
-  console.log('PlantArr size = ' + plantArr.length);
+  // console.log('PlantArr size = ' + plantArr.length);
 }
 
 //function to begin evolving and stuff
@@ -103,11 +110,12 @@ var matingTest = function() {
   for (var p = 0; p < plantArr.length; p++) {
     if (plantArr[p].asexual == false) {
     for (var l = 0; l < plantArr[p].pollRange; l++) {
-      // console.log(plantArr[p].pollRange);
-      // console.log(false);
       if (p - l > 0 && p + l < plantArr.length) {
-          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-          plantArr[p].plantMating(true, plantArr[p].numOffspring);
+        // console.log(true);
+          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == true || plantArr[p - l].isFemale == true)) {
+            if (randomChance()) {
+              plantArr[p].plantMating(true, plantArr[p].numOffspring);
+            }
           }
         }
       }
@@ -180,19 +188,19 @@ function predation() {
   //Adding in another plant growth cycle to keep herbivore food high enough
 
   //TODO: reimplement the plant creation with the new incrementArr
-  for (var p = 0; p < plantArr.length; p++) {
-    if (plantArr[p].asexual == false) {
-    for (var l = 0; l < plantArr[p].pollRange; l++) {
-      if (p - l > 0 && p + l < plantArr.length) {
-          if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
-          plantArr[p].plantMating(true, plantArr[p].numOffspring);
-          }
-        }
-      }
-    } else if (plantArr[p].asexual == true) {
-      plantArr[p].asexualPlant(true, plantArr[p].asexualNumOffspring);
-    }
-  }
+  // for (var p = 0; p < plantArr.length; p++) {
+  //   if (plantArr[p].asexual == false) {
+  //   for (var l = 0; l < plantArr[p].pollRange; l++) {
+  //     if (p - l > 0 && p + l < plantArr.length) {
+  //         if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
+  //         plantArr[p].plantMating(true, plantArr[p].numOffspring);
+  //         }
+  //       }
+  //     }
+  //   } else if (plantArr[p].asexual == true) {
+  //     plantArr[p].asexualPlant(true, plantArr[p].asexualNumOffspring);
+  //   }
+  // }
 }
 
 
@@ -338,7 +346,7 @@ function Animal(type) {
 }
 
 function Plant() {
-  var size; //Out of 20?
+  var size = 10; //Out of 20?
   var sizeCounter = 1;
   var healthiness = 1; //Out of -10 to 10, with -10 being lethal??
   var healthinessCounter = 2;
@@ -382,6 +390,7 @@ function Plant() {
 module.exports = {
   randomChance: randomChance,
   addOrSubtract: addOrSubtract,
+  lowRandomChance: lowRandomChance,
   // traitChange: traitChange,
   evolution: evolution,
   animalArr: animalArr,
