@@ -96,9 +96,11 @@ function populate() {
 function initialEvolution() {
   for (var j = 0; j < animalArr.length; j++) {
     animalArr[j] = evolution(animalArr[j]);
+    return animalArr[j];
   }
   for (var k = 0; k < plantArr.length; k++) {
     plantArr[k] = evolution(plantArr[k]);
+    return plantArr[k];
   }
 }
 
@@ -125,7 +127,7 @@ var matingTest = function() {
     }
   }
   //For animals mating
-  console.log('AnimalArr size is now = ' + animalArr.length)
+  // console.log('AnimalArr size is now = ' + animalArr.length)
   for (var x = 0; x < animalArr.length; x++) {
     if (animalArr[x].isFemale == true) {
       for (var y = 0; y < animalArr.length; y++) {
@@ -151,6 +153,7 @@ var matingTest = function() {
 //Function to see if they'll eat each other
 function predation() {
   var counter = animalArr.length;
+  var plantsEaten = Math.round((plantArr.length-1) * Math.random());
 //TODO add functionality so that predators can eat each other
   for (var i = 0; i < animalArr.length; i++) {
     if (animalArr[i].diet <= 1) {

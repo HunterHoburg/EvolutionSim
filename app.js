@@ -25,24 +25,47 @@ var asexualPlantMating = functionsPage.asexualPlantMating;
 
 populate();
 // console.log(plantArr);
+// console.log(animalArr.length);
+for (var i = 0; i < animalArr.length; i++) {
+  console.log(animalArr[i].size);
+}
+// console.log(animalArr.length);
 initialEvolution();
+// console.log(animalArr.length);
+for (var i = 0; i < animalArr.length; i++) {
+  console.log(animalArr[i].size);
+}
+// initialEvolution();
+// console.log(animalArr.length);
 initialEvolution();
-initialEvolution();
-initialEvolution();
+for (var i = 0; i < animalArr.length; i++) {
+  console.log(animalArr[i].size);
+}
+// console.log(animalArr.length);
 matingTest();
-initialEvolution();
-initialEvolution();
+// console.log(animalArr.length);
+// initialEvolution();
+// console.log(animalArr.length);
+// initialEvolution();
+// console.log(animalArr.length);
 matingTest();
-initialEvolution();
+// console.log(animalArr.length);
+// initialEvolution();
+// console.log(animalArr.length);
 matingTest();
-console.log(plantArr.length);
+// console.log(animalArr.length);
+// console.log(animalArr.length);
 // console.log(plantArr)
 // console.log(plantArr);
-initialEvolution();
+// initialEvolution();
+// console.log(animalArr.length);
 // console.log(animalArr);
 predation();
+// console.log(animalArr.length);
 matingTest();
-initialEvolution();
+// console.log(animalArr.length);
+// initialEvolution();
+// console.log(animalArr.length);
 // console.log(animalArr[1]);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
 // console.log(plantArr);
