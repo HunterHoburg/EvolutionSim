@@ -33,11 +33,11 @@ function addOrSubtract() {
   }
 }
 
-//TODO: flesh out the increment array
+
 function traitIncrement(arr) {
   // Here we make sure the array is less than 4, because 4, 5, 6 are not integers
 
-    var change = (Math.pow(randomChance()) * (addOrSubtract())* randomIncrementArr(arr))
+    var change = randomChance() * addOrSubtract() * randomIncrementArr(arr);
     return change;
 }
   //possibly else if, in case we don't want to make an array for booleans, colors, etc.
@@ -51,10 +51,11 @@ var evolution = function(species) {
   // console.log(species);
   // console.log(species.size);
   for (var key in species) {
+    // console.log(species[key]);
     // console.log(key + '=' + species[key])
     if (key !== 'ID' && key.substr(-7) !== 'Counter' && typeof species[key] !== 'function') {
       var count = key + 'Counter';
-      console.log(species[key]);
+      // console.log(species[key]);
       // console.log(count);
       if (species[count]) {
         if (species[count] < 4) {
@@ -76,11 +77,13 @@ function populate() {
   for (var i = 0; i <= populationSize; i++) {
     var name = new Animal();
     // console.log(name);
-    name = evolution(name);
+    // console.log(name);
+    evolution(name);
     // console.log(name2);
-    name = evolution(name);
+    evolution(name);
     name.ID = i;
     animalArr.push(name);
+    // console.log(name);
   }
   for (var j = 0; j <= foodSize; j++) {
     var name = j;
@@ -110,8 +113,8 @@ var matingTest = function() {
   for (var p = 0; p < plantArr.length; p++) {
     if (plantArr[p].asexual == false) {
     for (var l = 0; l < plantArr[p].pollRange; l++) {
-      console.log(plantArr[p].pollRange);
-      console.log(false);
+      // console.log(plantArr[p].pollRange);
+      // console.log(false);
       if (p - l > 0 && p + l < plantArr.length) {
           if (plantArr[p].isFemale && (plantArr[p + l].isFemale == false || plantArr[p - l].isFemale == false)) {
           plantArr[p].plantMating(true, plantArr[p].numOffspring);
@@ -119,7 +122,7 @@ var matingTest = function() {
         }
       }
     } else if (plantArr[p].asexual == true) {
-      console.log(true)
+      // console.log(true)
       plantArr[p].asexualPlant(true, plantArr[p].asexualNumOffspring);
     }
   }

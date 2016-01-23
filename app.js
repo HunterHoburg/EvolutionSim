@@ -24,12 +24,13 @@ var asexualPlantMating = functionsPage.asexualPlantMating;
 //
 populate();
 console.log(plantArr[1].pollRange);
-console.log(plantArr);
+
 
 initialEvolution();
 initialEvolution();
 initialEvolution();
 initialEvolution();
+console.log(animalArr);
 matingTest();
 initialEvolution();
 initialEvolution();
@@ -37,6 +38,7 @@ matingTest();
 initialEvolution();
 matingTest();
 initialEvolution();
+// console.log(animalArr);
 predation();
 matingTest();
 initialEvolution();
