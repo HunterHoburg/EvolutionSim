@@ -30,7 +30,6 @@ initialEvolution();
 initialEvolution();
 initialEvolution();
 initialEvolution();
-console.log(animalArr);
 matingTest();
 initialEvolution();
 initialEvolution();
@@ -44,7 +43,5 @@ matingTest();
 initialEvolution();
 // console.log(animalArr[1]);
 console.log(animalArr.length, predatorArr.length, plantArr.length);
-console.log(plantArr[3].pollRange);
 
 var testPlant = new Plant();
-console.log(testPlant.pollRange);
