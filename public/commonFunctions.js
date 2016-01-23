@@ -49,6 +49,9 @@ var evolution = function(species) {
           species[key] += traitIncrement(incrementArr[species[count]]);
         }
       }
+      if (species[key] < 0) {
+        species[key] = species[key] * -1;
+      }
     }
   }
     return species;
@@ -144,7 +147,7 @@ function predation() {
   for (var i = 0; i < animalArr.length; i++) {
     if (animalArr[i].diet <= 1) {
       predatorArr.push(animalArr[i]);
-      animalArr.splice(animalArr[i], 1);
+      animalArr.splice(animalArr.indexOf(animalArr[i]), 1);
     } else if (animalArr[i].diet > 1) {
       for (var t = 0; t < plantArr.length; t++) {
         if (animalArr[i].energy > 2 && animalArr[i].size > 3 && plantArr[t].size > 0) {
@@ -166,7 +169,7 @@ function predation() {
   }
   for (var l = 0; l < predatorArr.length; l++) {
     for (var m = 0; m < animalArr.length; m++) {
-      if (predatorArr[l].attack > animalArr[m].defense && predatorArr[l].canMove === true && predatorArr[l].moveSpeed >= animalArr[m].moveSpeed && randomChance()) {
+      if (predatorArr[l].attack > animalArr[m].defense && predatorArr[l].canMove === true && predatorArr[l].moveSpeed >= animalArr[m].moveSpeed && randomChance() && predatorArr[l].energy > animalArr[m].energy) {
         predatorArr[l].energy = predatorArr[l].energy + animalArr[m].calories;
         animalArr.splice(animalArr.indexOf(animalArr[m], 1))
 

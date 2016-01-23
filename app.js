@@ -37,7 +37,7 @@ matingTest();
 initialEvolution();
 matingTest();
 initialEvolution();
-// console.log(animalArr);
+console.log(animalArr);
 predation();
 matingTest();
 initialEvolution();
