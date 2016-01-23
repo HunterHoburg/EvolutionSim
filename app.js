@@ -29,30 +29,35 @@ populate();
 for (var i = 0; i < animalArr.length; i++) {
   console.log(animalArr[i].size);
 }
-// console.log(animalArr.length);
+// console.log('animalArr.length =' +animalArr.length);
 initialEvolution();
 // console.log(animalArr.length);
 for (var i = 0; i < animalArr.length; i++) {
   console.log(animalArr[i].size);
 }
+// console.log('animalArr.length =' +animalArr.length);
 // initialEvolution();
 // console.log(animalArr.length);
 initialEvolution();
 for (var i = 0; i < animalArr.length; i++) {
   console.log(animalArr[i].size);
 }
+console.log('animalArr.length =' +animalArr.length);
 // console.log(animalArr.length);
 matingTest();
+console.log('animalArr.length =' +animalArr.length);
 // console.log(animalArr.length);
 // initialEvolution();
 // console.log(animalArr.length);
 // initialEvolution();
 // console.log(animalArr.length);
 matingTest();
+console.log('animalArr.length =' +animalArr.length);
 // console.log(animalArr.length);
 // initialEvolution();
 // console.log(animalArr.length);
 matingTest();
+console.log('animalArr.length =' +animalArr.length);
 // console.log(animalArr.length);
 // console.log(animalArr.length);
 // console.log(plantArr)

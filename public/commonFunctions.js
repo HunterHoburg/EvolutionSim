@@ -95,11 +95,11 @@ function populate() {
 //function to begin evolving and stuff
 function initialEvolution() {
   for (var j = 0; j < animalArr.length; j++) {
-    animalArr[j] = evolution(animalArr[j]);
+    evolution(animalArr[j]);
     return animalArr[j];
   }
   for (var k = 0; k < plantArr.length; k++) {
-    plantArr[k] = evolution(plantArr[k]);
+    evolution(plantArr[k]);
     return plantArr[k];
   }
 }
