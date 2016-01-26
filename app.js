@@ -16,7 +16,8 @@ var foodSize = functionsPage.foodSize;
 var populationSize = functionsPage.populationSize;
 var Animal = functionsPage.Animal;
 var Plant = functionsPage.Plant;
-var initialEvolution = functionsPage.initialEvolution;
+var initialAnimalEvolution = functionsPage.initialAnimalEvolution;
+var initialPlantEvolution = functionsPage.initialPlantEvolution;
 var traitIncrement = functionsPage.traitIncrement;
 var incrementArr = variation.incrementArr;
 var randomIncrementArr = functionsPage.randomIncrementArr;
@@ -24,55 +25,37 @@ var plantMating = functionsPage.plantMating;
 var asexualPlantMating = functionsPage.asexualPlantMating;
 
 populate();
-// console.log(plantArr);
-// console.log(animalArr.length);
-for (var i = 0; i < animalArr.length; i++) {
-  console.log(animalArr[i].size);
-}
-// console.log('animalArr.length =' +animalArr.length);
-initialEvolution();
-// console.log(animalArr.length);
-for (var i = 0; i < animalArr.length; i++) {
-  console.log(animalArr[i].size);
-}
-// console.log('animalArr.length =' +animalArr.length);
-// initialEvolution();
-// console.log(animalArr.length);
-initialEvolution();
-for (var i = 0; i < animalArr.length; i++) {
-  console.log(animalArr[i].size);
-}
+// for (var i = 0; i < animalArr.length; i++) {
+//   console.log(animalArr[i].energy);
+// }
+initialAnimalEvolution();
+initialPlantEvolution();
+// for (var i = 0; i < animalArr.length; i++) {
+//   console.log(animalArr[i].energy);
+// }
+
+initialAnimalEvolution();
+initialPlantEvolution();
+// for (var i = 0; i < animalArr.length; i++) {
+//   console.log(animalArr[i].energy);
+// }
 console.log('animalArr.length =' +animalArr.length);
-// console.log(animalArr.length);
 matingTest();
 console.log('animalArr.length =' +animalArr.length);
-// console.log(animalArr.length);
-// initialEvolution();
-// console.log(animalArr.length);
-// initialEvolution();
-// console.log(animalArr.length);
+// for (var i = 0; i < animalArr.length; i++) {
+//   console.log(animalArr[i].energy);
+// }
+
 matingTest();
 console.log('animalArr.length =' +animalArr.length);
-// console.log(animalArr.length);
-// initialEvolution();
-// console.log(animalArr.length);
+for (var i = 0; i < animalArr.length; i++) {
+  console.log(animalArr[i].energy);
+}
 matingTest();
 console.log('animalArr.length =' +animalArr.length);
-// console.log(animalArr.length);
-// console.log(animalArr.length);
-// console.log(plantArr)
-// console.log(plantArr);
-// initialEvolution();
-// console.log(animalArr.length);
-// console.log(animalArr);
+
 predation();
-// console.log(animalArr.length);
+
 matingTest();
-// console.log(animalArr.length);
-// initialEvolution();
-// console.log(animalArr.length);
-// console.log(animalArr[1]);
+
 console.log(animalArr.length, predatorArr.length, plantArr.length);
-// console.log(plantArr);
-// console.log(animalArr);
-// console.log(incrementArr[6][randomChance()*(incrementArr[6].length-1)])

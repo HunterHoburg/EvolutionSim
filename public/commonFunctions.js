@@ -58,9 +58,7 @@ var evolution = function(species) {
         species[key] = species[key] * -1;
       }
     } else if (typeof species[key] == 'boolean') {
-      // console.log(true);
       if (lowRandomChance()) {
-        // console.log(randomChance());
         species[key] = incrementArr[6][randomChance()*5]
       }
     }
@@ -93,11 +91,13 @@ function populate() {
 }
 
 //function to begin evolving and stuff
-function initialEvolution() {
+function initialAnimalEvolution() {
   for (var j = 0; j < animalArr.length; j++) {
     evolution(animalArr[j]);
     return animalArr[j];
   }
+}
+function initialPlantEvolution() {
   for (var k = 0; k < plantArr.length; k++) {
     evolution(plantArr[k]);
     return plantArr[k];
@@ -406,7 +406,8 @@ module.exports = {
   populate: populate,
   Animal: Animal,
   Plant: Plant,
-  initialEvolution: initialEvolution,
+  initialAnimalEvolution: initialAnimalEvolution,
+  initialPlantEvolution: initialPlantEvolution,
   traitIncrement: traitIncrement,
   randomIncrementArr: randomIncrementArr,
   plantMating: plantMatingBasic,
