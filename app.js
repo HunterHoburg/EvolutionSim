@@ -29,8 +29,13 @@ populate();
 //   console.log(animalArr[i].energy);
 // }
 initialAnimalEvolution();
-console.log(animalArr[2].energy);
+// console.log(animalArr[2].energy);
 initialPlantEvolution();
+for (var i = 0; i < animalArr.length; i++) {
+  if (animalArr[i].energy < 0) {
+    console.log(animalArr[i]);
+  }
+}
 // for (var i = 0; i < animalArr.length; i++) {
 //   console.log(animalArr[i].energy);
 // }
@@ -42,11 +47,22 @@ initialPlantEvolution();
 // }
 console.log('animalArr.length =' +animalArr.length);
 matingTest();
+// for (var i = 0; i < animalArr.length; i++) {
+//   if (animalArr[i].energy < 0) {
+//     console.log(animalArr[i]);
+//   }
+// }
 console.log('animalArr.length =' +animalArr.length);
+
 
 matingTest();
 console.log(animalArr[2].energy);
-console.log('animalArr.length =' +animalArr.length);
+// console.log('animalArr.length =' +animalArr.length);
+// for (var i = 0; i < animalArr.length; i++) {
+//   if (animalArr[i].energy < 0) {
+//     console.log(animalArr[i]);
+//   }
+// }
 // for (var i = 0; i < animalArr.length; i++) {
 //   console.log(animalArr[i].energy);
 // }

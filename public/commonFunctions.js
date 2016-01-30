@@ -7,7 +7,8 @@ var incrementArr = variationArrays.incrementArr;
 
 //TODO: LOOK FOR ALL THE TODO TODO's
 //TODO: MAKE PREDATORS THEIR OWN OBJECT
-
+//TODO: FIND OUT WHY ENERGY IS GETTIN NEGATIVE AND NO OTHER ATTRIBUTES ARE
+//TODO: possibly add array for dead plants/animals
 //COMMON FUNCTIONS
 
 function randomChance() {
@@ -59,7 +60,11 @@ var evolution = function(species) {
       }
     } else if (typeof species[key] == 'boolean') {
       if (lowRandomChance()) {
-        species[key] = incrementArr[6][randomChance()*5]
+        var change = incrementArr[6][randomChance()*5];
+        // species[key] = incrementArr[6][randomChance()*5]
+        if (change > 0) {
+          species[key] = change;
+        }
       }
     }
   }
@@ -87,7 +92,6 @@ function populate() {
     name.ID = j;
     plantArr.push(name);
   }
-  // console.log('PlantArr size = ' + plantArr.length);
 }
 
 //function to begin evolving and stuff
@@ -109,6 +113,7 @@ function initialPlantEvolution() {
 var matingTest = function() {
   //This is to give the herbivores a steady plant supply for the next predation cycle
   // console.log('PlantArr size is now = ' + plantArr.length);
+
   for (var p = 0; p < plantArr.length; p++) {
     if (plantArr[p].asexual == false) {
     for (var l = 0; l < plantArr[p].pollRange; l++) {
@@ -134,7 +139,8 @@ var matingTest = function() {
         if (animalArr[x] !== animalArr[y] && animalArr[x].age !== 'young' && animalArr[y].age !== 'young') {
           if (animalArr[x].sexAppeal > animalArr[y].sexAppeal && randomChance()) {
             animalArr[x].animalMating(animalArr[x].canMate, animalArr[x].numOffspring);
-            animalArr[x].energy -= animalArr[x].calories;
+            // animalArr[x].energy -= (animalArr[x].energy/10);
+            // console.log(animalArr[x].energy - animalArr[x].calories);
           }
         }
       }
